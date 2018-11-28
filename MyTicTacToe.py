@@ -1,7 +1,6 @@
 from os import system
 import random
 
-
 def win(board, player):
     all = []
     for x in board:
@@ -17,8 +16,6 @@ def win(board, player):
     else:
         return False
 
-
-
 def gameover(board):
     return win(board, 'X') or win(board, 'O')
 
@@ -28,6 +25,7 @@ def printBoard(board):
             print (y, end ='')
         print()
     print()
+
 def humanTurn(board):
     next = -1
     while(0>next or next>=9):
@@ -41,11 +39,13 @@ def humanTurn(board):
         except:
             print('Wrong charracter')
     return next
+
 def botTurn(board):
     x = random.randint(0,8)
     while(board[x//3][x%3]!='.'):
         x = random.randint(0,8)
     return x
+
 def main():
     n = 3
     human = ''
@@ -82,8 +82,6 @@ def main():
     print()
 
     board = [['.'] * n for i in range(n)]
-
-
     turn = start
     N = 0
     next = 0
@@ -118,9 +116,8 @@ def main():
         print('You Lose')
     else:
         print('Draw')
-
     exit()
-
+    
 
 if __name__ == '__main__':
     main()
