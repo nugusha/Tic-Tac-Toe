@@ -8,16 +8,20 @@ YELLOW = (255,255,0)
 WHITE = (255,255,255)
 
 class TicTacToeView:
-    def __init__(self,size,SQUARESIZE):
+    def __init__(self,GRID_SIZE):
         pygame.init()
-        self.SQUARESIZE = SQUARESIZE
-        self.width = size[0]
-        self.height = size[1]
-        self.screen = pygame.display.set_mode(size)
-        self.myfont = pygame.font.SysFont("monospace", SQUARESIZE//2)
+        self.SQUARESIZE = 300//GRID_SIZE
+        self.RADIUS = int(self.SQUARESIZE/2-5)
+        self.width = GRID_SIZE * self.SQUARESIZE
+        self.height = (GRID_SIZE + 1) * self.SQUARESIZE
+        self.size = (self.width, self.height)
+        self.screen = pygame.display.set_mode(self.size)
+        self.myfont = pygame.font.SysFont("monospace", self.SQUARESIZE//2)
     
-    def draw_board(self,board,GRIDSIZE,SQUARESIZE,RADIUS):
+    def draw_board(self,board,GRIDSIZE,RADIUS):
         print(board,GRIDSIZE)
+        SQUARESIZE = self.SQUARESIZE
+        RADIUS = self.RADIUS
         for c in range(GRIDSIZE):
             for r in range(GRIDSIZE):
                 pygame.draw.rect(self.screen, BLUE, (c*SQUARESIZE,(r+1)*SQUARESIZE, SQUARESIZE, SQUARESIZE ))

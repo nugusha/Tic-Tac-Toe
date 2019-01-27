@@ -18,13 +18,8 @@ class TicTacToe:
         self.ROW_COUNT = GRID_SIZE
         self.COLUMN_COUNT = GRID_SIZE
         
-        self.SQUARESIZE = 300//self.GRID_SIZE
-        self.RADIUS = int(self.SQUARESIZE/2-5)
-        self.width = self.COLUMN_COUNT * self.SQUARESIZE
-        self.height = (self.ROW_COUNT + 1) * self.SQUARESIZE
-        self.size = (self.width, self.height)
+        self.View = TicTacToeView(GRID_SIZE)
         self.N = 0
-        self.View = TicTacToeView(self.size,self.SQUARESIZE)
         
     def create_board(self,n):
         return [['.'] * n for i in range(n)]
@@ -65,8 +60,8 @@ class TicTacToe:
     def humanTurn(self,board,event):
         posx = event.pos[0]
         posy = event.pos[1]
-        col = posx // self.SQUARESIZE
-        row = posy // self.SQUARESIZE - 1
+        col = posx // self.View.SQUARESIZE
+        row = posy // self.View.SQUARESIZE - 1
         next = row * self.GRID_SIZE + col
         return next
 
@@ -77,7 +72,7 @@ class TicTacToe:
         return x
 
     def draw_board(self,board):
-        self.View.draw_board(board,self.GRID_SIZE,self.SQUARESIZE,self.RADIUS)
+        self.View.draw_board(board,self.GRID_SIZE)
 
     def finish(self,board,human,bot,screen,myfont):
         if(self.win(board, human)):
@@ -91,9 +86,9 @@ class TicTacToe:
         self.View.draw_turn(turn,human)
 
     def run(self):
-        self.run2(self.GRID_SIZE,self.SQUARESIZE,self.size,self.View.screen,self.View.myfont)
+        self.run2(self.GRID_SIZE,self.View.screen,self.View.myfont)
 
-    def run2(self,GRID_SIZE,SQUARESIZE,size,screen,myfont):
+    def run2(self,GRID_SIZE,screen,myfont):
         human = 'X'
         bot = 'O'
         start = 'X'
