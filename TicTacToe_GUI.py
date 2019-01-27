@@ -9,30 +9,42 @@ BLACK = (0,0,0)
 RED = (255,0,0)
 YELLOW = (255,255,0)
 WHITE = (255,255,255)
-
-ROW_COUNT = 3
-COLUMN_COUNT = 3
+NEED_TO_WIN = 5
+Board_Square_Count = 10
+ROW_COUNT = Board_Square_Count
+COLUMN_COUNT = Board_Square_Count
 
 def create_board(n):
     return [['.'] * n for i in range(n)]
 
+def check_line(board,player,i,j,x,y):
+
+    if(i+(NEED_TO_WIN-1)*x < 0 or i+(NEED_TO_WIN-1)*x>=ROW_COUNT):
+        return 0
+    if(j+(NEED_TO_WIN-1)*y < 0 or j+(NEED_TO_WIN-1)*y>=ROW_COUNT):
+        return 0
+
+    flag = 1
+
+    for q in range(NEED_TO_WIN):
+        if(board[i+q*x][j+q*y]!=player):
+            flag = 0
+
+    return flag
+
 def win(board, player):
-    all = []
-    for x in board:
-        all.append(x)
-    for x in [list(i) for i in zip(*board)]:
-        all.append(x)
-
-    all.append([board[0][0],board[1][1],board[2][2]])
-    all.append([board[2][0],board[1][1],board[0][2]])
-
-    if [player, player, player] in all:
-        return True
-    else:
-        return False
+    all = 0
+    for i in range(Board_Square_Count):
+        for j in range(Board_Square_Count):
+            all+=check_line(board,player,i,j,0,1)
+            all+=check_line(board,player,i,j,1,0)
+            all+=check_line(board,player,i,j,1,1)
+            all+=check_line(board,player,i,j,1,-1)
+            all+=check_line(board,player,i,j,-1,1)
+    return (all>0)
 
 def gameover(board):
-    return win(board, 'X') or win(board, 'O') or N==9
+    return win(board, 'X') or win(board, 'O') or N==Board_Square_Count**2
 
 def printBoard(board):
     for x in board:
@@ -49,14 +61,14 @@ def humanTurn(board):
     col = posx // SQUARESIZE
     row = posy // SQUARESIZE - 1
 
-    next = row * 3 + col
+    next = row * Board_Square_Count + col
     #print(next)
     return next
 
 def botTurn(board):
-    x = random.randint(0,8)
-    while(board[x//3][x%3]!='.'):
-        x = random.randint(0,8)
+    x = random.randint(0,Board_Square_Count**2-1)
+    while(board[x//Board_Square_Count][x%Board_Square_Count]!='.'):
+        x = random.randint(0,Board_Square_Count**2-1)
     return x
 
 def draw_board(board):
@@ -108,8 +120,7 @@ turn = start
 N = 0
 next = 0
 
-n = 3
-SQUARESIZE = 100
+SQUARESIZE = 600//Board_Square_Count
 RADIUS = int(SQUARESIZE/2-5)
 width = COLUMN_COUNT * SQUARESIZE
 height = (ROW_COUNT + 1) * SQUARESIZE
@@ -118,10 +129,10 @@ size = (width, height)
 
 pygame.init()
 screen = pygame.display.set_mode(size)
-myfont = pygame.font.SysFont("monospace", 50)
+myfont = pygame.font.SysFont("monospace", SQUARESIZE//2)
 
 game_over = False
-board = create_board(n)
+board = create_board(Board_Square_Count)
 draw_board(board)
 pygame.display.update()
 
@@ -150,8 +161,8 @@ while(gameover(board)==False):
             if(make_turn == False):
                 continue
 
-        i = next//3
-        j = next%3
+        i = next//Board_Square_Count
+        j = next%Board_Square_Count
         if(board[i][j] == '.'):
             board[i][j] = turn
             N += 1
