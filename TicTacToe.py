@@ -171,7 +171,5 @@ class TicTacToe:
                 if(self.gameover(board)):
                     self.finish(board,human,bot,screen,myfont)
                     pygame.time.wait(3000)
-
-if __name__ == '__main__':
-    A_TicTacToe = TicTacToe(3,3)
-    A_TicTacToe.run()
+        sys.exit()
+    
