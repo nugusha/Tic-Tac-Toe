@@ -1,5 +1,6 @@
 
 import pygame
+import sys
 
 BLUE = (0,0,255)
 BLACK = (0,0,0)
@@ -18,8 +19,8 @@ class TicTacToeView:
         self.screen = pygame.display.set_mode(self.size)
         self.myfont = pygame.font.SysFont("monospace", self.SQUARESIZE//3)
     
-    def draw_board(self,board,GRIDSIZE):
-        print(board,GRIDSIZE)
+    def draw_board(self,board):
+        GRIDSIZE = len(board[0])
         SQUARESIZE = self.SQUARESIZE
         RADIUS = self.RADIUS
         for c in range(GRIDSIZE):
@@ -38,7 +39,14 @@ class TicTacToeView:
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))
         self.headline(name + "'s Turn!")
         pygame.display.update()
-                
+    
+    def gameover(self):
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT):
+                sys.exit()
+    
+    def WAIT(self,duration):
+        pygame.time.wait(duration)
     
     def headline(self,headline):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))

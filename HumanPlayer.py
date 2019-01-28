@@ -6,8 +6,10 @@ import sys
 class HumanPlayer():
     def __init__(self,name = 'Human'):
         self.name = name
-    def make_a_move(self,board,pygame,SQUARESIZE):
+    def make_a_move(self,board,pygame):
         GRID_SIZE = len(board[0])
+        width = pygame.display.get_surface().get_size()[0]
+        SQUARESIZE = width // GRID_SIZE
         while (True):
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):

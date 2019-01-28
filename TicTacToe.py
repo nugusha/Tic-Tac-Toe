@@ -4,8 +4,6 @@ import pygame
 import random
 import sys
 from TicTacToeView import TicTacToeView
-from RandomBot import RandomBot
-from HumanPlayer import HumanPlayer
 
 BLUE = (0,0,255)
 BLACK = (0,0,0)
@@ -17,11 +15,9 @@ class TicTacToe:
     def __init__(self, needToWin, GRID_SIZE,player1,player2):
         self.NEED_TO_WIN = needToWin
         self.GRID_SIZE = GRID_SIZE
-        self.player1 = player1
-        self.player2 = player2
-        self.ROW_COUNT = GRID_SIZE
-        self.COLUMN_COUNT = GRID_SIZE
-        
+        self.players = [player1,player2]
+        self.board = self.create_board(self.GRID_SIZE)
+
         self.View = TicTacToeView(GRID_SIZE)
         self.N = 0
         
@@ -29,9 +25,9 @@ class TicTacToe:
         return [[0] * n for i in range(n)]
 
     def check_line(self,board,player,i,j,x,y):
-        if(i+(self.NEED_TO_WIN-1)*x < 0 or i+(self.NEED_TO_WIN-1)*x>=self.ROW_COUNT):
+        if(i+(self.NEED_TO_WIN-1)*x < 0 or i+(self.NEED_TO_WIN-1)*x>=self.GRID_SIZE):
             return 0
-        if(j+(self.NEED_TO_WIN-1)*y < 0 or j+(self.NEED_TO_WIN-1)*y>=self.ROW_COUNT):
+        if(j+(self.NEED_TO_WIN-1)*y < 0 or j+(self.NEED_TO_WIN-1)*y>=self.GRID_SIZE):
             return 0
         
         flag = 1
@@ -52,6 +48,7 @@ class TicTacToe:
         return (all>0)
 
     def gameover(self,board):
+        self.View.gameover()
         return self.win(board, 1) or self.win(board, 2) or self.N==self.GRID_SIZE**2
 
     def printBoard(self,board):
@@ -61,68 +58,49 @@ class TicTacToe:
             print()
         print()
 
-    def humanTurn(self,board,event):
-        posx = event.pos[0]
-        posy = event.pos[1]
-        col = posx // self.View.SQUARESIZE
-        row = posy // self.View.SQUARESIZE - 1
-        next = row * self.GRID_SIZE + col
-        return next
-
     def draw_board(self,board):
-        self.View.draw_board(board,self.GRID_SIZE)
+        self.View.draw_board(board)
 
-    def finish(self,board,screen,myfont,players):
+    def finish(self,board,players):
         if(self.win(board, 1)):
             self.View.headline(players[0].name + " Wins!!")
         elif(self.win(board, 2)):
             self.View.headline(players[1].name + " Wins!")
         else:
             self.View.headline("Draw!!!")
+        self.View.WAIT(3000)
 
-    def draw_turn(self,player,myfont,screen):
+    def draw_turn(self,player):
         self.View.draw_turn(player.name)
 
+    def tryMakingAMove(self,board,next,turn):
+        i = next//self.GRID_SIZE
+        j = next%self.GRID_SIZE
+        if(board[i][j] == 0):
+            board[i][j] = turn
+            self.N += 1
+            self.printBoard(board)
+            return 1
+        else:
+            print('Already occupied!')
+            return 0
+
     def run(self):
-        self.run2(self.GRID_SIZE,self.View.screen,self.View.myfont)
-
-    def run2(self,GRID_SIZE,screen,myfont):
-        player1 = self.player1
-        player2 = self.player2
-        players = [player1,player2]
+        players = self.players # [player1,player2]
         turn = 1
-        next = 0
 
-        board = self.create_board(GRID_SIZE)
+        board = self.board
         self.draw_board(board)
-        pygame.display.update()
 
         while(self.gameover(board)==False):
-            self.draw_turn(players[turn-1],myfont,screen)
-            for event in pygame.event.get():
-                if (event.type == pygame.QUIT):
-                    sys.exit()
-                
-            
-            next = players[turn-1].make_a_move(board,pygame,self.View.SQUARESIZE)
+            self.draw_turn(players[turn-1])
+            next = players[turn-1].make_a_move(board,pygame)
 
-            i = next//GRID_SIZE
-            j = next%GRID_SIZE
-            if(board[i][j] == 0):
-                board[i][j] = turn
-                self.N += 1
-                self.printBoard(board)
-            else:
-                print('Already occupied!')
+            if(self.tryMakingAMove(board,next,turn)==0):
                 continue
 
             turn = 3 - turn
-
             self.draw_board(board)
-            
-            if(self.gameover(board)):
-                self.finish(board,screen,myfont,players)
-                pygame.time.wait(3000)
-                sys.exit()
+
+        self.finish(board,players)
         sys.exit()
-    
