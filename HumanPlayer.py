@@ -1,14 +1,17 @@
 from os import system
 import numpy as np
 import random
+import sys
 
 class HumanPlayer():
-    def __init__(self):
-        pass
+    def __init__(self,name = 'Human'):
+        self.name = name
     def make_a_move(self,board,pygame,SQUARESIZE):
         GRID_SIZE = len(board[0])
         while (True):
             for event in pygame.event.get():
+                if (event.type == pygame.QUIT):
+                    sys.exit()
                 if(event.type == pygame.MOUSEBUTTONDOWN):
                     posx = event.pos[0]
                     posy = event.pos[1]

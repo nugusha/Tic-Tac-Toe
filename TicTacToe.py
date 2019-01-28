@@ -72,28 +72,25 @@ class TicTacToe:
     def draw_board(self,board):
         self.View.draw_board(board,self.GRID_SIZE)
 
-    def finish(self,board,human,bot,screen,myfont):
-        if(self.win(board, human)):
-            self.View.headline("Player 1 Wins!!")
-        elif(self.win(board, bot)):
-            self.View.headline("Player 2 Wins!")
+    def finish(self,board,screen,myfont,players):
+        if(self.win(board, 1)):
+            self.View.headline(players[0].name + " Wins!!")
+        elif(self.win(board, 2)):
+            self.View.headline(players[1].name + " Wins!")
         else:
             self.View.headline("Draw!!!")
 
-    def draw_turn(self,turn,myfont,screen):
-        self.View.draw_turn(turn)
+    def draw_turn(self,player,myfont,screen):
+        self.View.draw_turn(player.name)
 
     def run(self):
         self.run2(self.GRID_SIZE,self.View.screen,self.View.myfont)
 
     def run2(self,GRID_SIZE,screen,myfont):
-        human = 1
-        bot = 2
-        start = 1
-
-        player1 = self.player1() 
-        player2 = self.player2()
-        turn = start
+        player1 = self.player1
+        player2 = self.player2
+        players = [player1,player2]
+        turn = 1
         next = 0
 
         board = self.create_board(GRID_SIZE)
@@ -101,16 +98,13 @@ class TicTacToe:
         pygame.display.update()
 
         while(self.gameover(board)==False):
-            print(turn,human)
-            self.draw_turn(turn,myfont,screen)
+            self.draw_turn(players[turn-1],myfont,screen)
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
                     sys.exit()
                 
-            if(turn == human):
-                next = player1.make_a_move(board,pygame,self.View.SQUARESIZE)
-            else:
-                next = player2.make_a_move(board,pygame,self.View.SQUARESIZE)
+            
+            next = players[turn-1].make_a_move(board,pygame,self.View.SQUARESIZE)
 
             i = next//GRID_SIZE
             j = next%GRID_SIZE
@@ -122,15 +116,12 @@ class TicTacToe:
                 print('Already occupied!')
                 continue
 
-            if(turn == 1):
-                turn = 2
-            else:
-                turn = 1
-                
+            turn = 3 - turn
+
             self.draw_board(board)
             
             if(self.gameover(board)):
-                self.finish(board,human,bot,screen,myfont)
+                self.finish(board,screen,myfont,players)
                 pygame.time.wait(3000)
                 sys.exit()
         sys.exit()

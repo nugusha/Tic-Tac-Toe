@@ -3,8 +3,8 @@ import numpy as np
 import random
 
 class RandomBot():
-    def __init__(self):
-        pass
+    def __init__(self,name = 'Bot'):
+        self.name = name
     def make_a_move(self,board,pygame,SQUARESIZE):
         pygame.time.wait(1000)
         GRID_SIZE = len(board[0])

@@ -16,7 +16,7 @@ class TicTacToeView:
         self.height = (GRID_SIZE + 1) * self.SQUARESIZE
         self.size = (self.width, self.height)
         self.screen = pygame.display.set_mode(self.size)
-        self.myfont = pygame.font.SysFont("monospace", self.SQUARESIZE//2)
+        self.myfont = pygame.font.SysFont("monospace", self.SQUARESIZE//3)
     
     def draw_board(self,board,GRIDSIZE):
         print(board,GRIDSIZE)
@@ -34,9 +34,9 @@ class TicTacToeView:
                 pygame.draw.circle(self.screen, color, (int(c*SQUARESIZE+SQUARESIZE/2),int((r+1)*SQUARESIZE+SQUARESIZE/2)), RADIUS)
                 pygame.display.update()
 
-    def draw_turn(self,turn):
+    def draw_turn(self,name):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))
-        self.headline("Player " + str(turn) + " Turn!")
+        self.headline(name + "'s Turn!")
         pygame.display.update()
                 
     

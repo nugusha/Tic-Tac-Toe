@@ -9,6 +9,8 @@ from RandomBot import RandomBot
 from HumanPlayer import HumanPlayer
 
 if __name__ == '__main__':
-    A_TicTacToe = TicTacToe(5,10,RandomBot,RandomBot)
+    p1 = RandomBot('Bot1')
+    p2 = RandomBot('Bot2')
+    A_TicTacToe = TicTacToe(5,10,p1,p2)
     A_TicTacToe.run()
     
