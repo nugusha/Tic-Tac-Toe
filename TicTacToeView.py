@@ -18,28 +18,25 @@ class TicTacToeView:
         self.screen = pygame.display.set_mode(self.size)
         self.myfont = pygame.font.SysFont("monospace", self.SQUARESIZE//2)
     
-    def draw_board(self,board,GRIDSIZE,RADIUS):
+    def draw_board(self,board,GRIDSIZE):
         print(board,GRIDSIZE)
         SQUARESIZE = self.SQUARESIZE
         RADIUS = self.RADIUS
         for c in range(GRIDSIZE):
             for r in range(GRIDSIZE):
                 pygame.draw.rect(self.screen, BLUE, (c*SQUARESIZE,(r+1)*SQUARESIZE, SQUARESIZE, SQUARESIZE ))
-                if( board[r][c] == 'X'):
+                if( board[r][c] == 1):
                     color = YELLOW
-                if( board[r][c] == 'O'):
+                if( board[r][c] == 2):
                     color = RED
-                if( board[r][c] == '.'):
+                if( board[r][c] == 0):
                     color = WHITE
                 pygame.draw.circle(self.screen, color, (int(c*SQUARESIZE+SQUARESIZE/2),int((r+1)*SQUARESIZE+SQUARESIZE/2)), RADIUS)
                 pygame.display.update()
 
-    def draw_turn(self,turn,human):
+    def draw_turn(self,turn):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))
-        if(turn == human):
-            self.headline("Your Turn!")
-        else:
-            self.headline("Bot Turn!")
+        self.headline("Player " + str(turn) + " Turn!")
         pygame.display.update()
                 
     
