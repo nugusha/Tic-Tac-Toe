@@ -3,7 +3,9 @@ import numpy as np
 import pygame
 import random
 import sys
+sys.path.append('./View')
 from TicTacToeView import TicTacToeView
+sys.path.append('./Model')
 from TicTacToeModel import TicTacToeModel
 
 BLUE = (0,0,255)
