@@ -36,15 +36,24 @@ class TicTacToeModel:
         all = 0
         for i in range(self.GRID_SIZE):
             for j in range(self.GRID_SIZE):
-                all+=self.check_line(board,player,i,j,0,1)
-                all+=self.check_line(board,player,i,j,1,0)
-                all+=self.check_line(board,player,i,j,1,1)
-                all+=self.check_line(board,player,i,j,1,-1)
-                all+=self.check_line(board,player,i,j,-1,1)
+                if( self.check_line(board,player,i,j,0,1)): 
+                    all+=1
+                elif( self.check_line(board,player,i,j,1,0)): 
+                    all+=1
+                elif( self.check_line(board,player,i,j,1,1)): 
+                    all+=1
+                elif( self.check_line(board,player,i,j,1,-1)): 
+                    all+=1
         return (all>0)
 
     def gameover(self,board):
-        return self.win(board, 1) or self.win(board, 2) or self.N==self.GRID_SIZE**2
+        flag = 1
+        for i in range(self.GRID_SIZE):
+            for j in range(self.GRID_SIZE):
+                if(board[i][j]==0):
+                    flag = 0
+        
+        return self.win(board, 1) or self.win(board, 2) or flag
 
     def tryMakingAMove(self,board,next,turn):
         i = next//self.GRID_SIZE
