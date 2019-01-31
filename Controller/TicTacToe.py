@@ -53,7 +53,7 @@ class TicTacToe:
     def finish(self,board,players):
         if(self.Model.win(board, 1)):
             self.View.headline(players[0].name + " Wins!!")
-        elif(self.Model.win(board, 2)):
+        elif(self.Model.win(board, -1)):
             self.View.headline(players[1].name + " Wins!")
         else:
             self.View.headline("Draw!!!")
@@ -73,7 +73,7 @@ class TicTacToe:
         while(self.gameover(board)==False):
             self.draw_turn(players[turn-1])
             start = time.time()
-            next = players[turn-1].make_a_move(board,pygame)
+            next = players[(turn!=1)].make_a_move(board,pygame)
             end = time.time()
             print(end - start)
             
@@ -84,7 +84,7 @@ class TicTacToe:
             print(move_now)
             Log.append(move_now)
             
-            turn = 3 - turn
+            turn *= -1
             self.draw_board(board)
 
         self.finish(board,players)

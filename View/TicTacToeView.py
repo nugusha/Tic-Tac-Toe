@@ -11,7 +11,7 @@ class TicTacToeView:
     def __init__(self,GRID_SIZE):
         pygame.init()
         self.SQUARESIZE = 300//GRID_SIZE
-        self.RADIUS = int(self.SQUARESIZE/2-5)
+        self.RADIUS = int(self.SQUARESIZE/2.1)
         self.width = GRID_SIZE * self.SQUARESIZE
         self.height = (GRID_SIZE + 1) * self.SQUARESIZE
         self.size = (self.width, self.height)
@@ -27,7 +27,7 @@ class TicTacToeView:
                 pygame.draw.rect(self.screen, BLUE, (c*SQUARESIZE,(r+1)*SQUARESIZE, SQUARESIZE, SQUARESIZE ))
                 if( board[r][c] == 1):
                     color = YELLOW
-                if( board[r][c] == 2):
+                if( board[r][c] == -1):
                     color = RED
                 if( board[r][c] == 0):
                     color = WHITE

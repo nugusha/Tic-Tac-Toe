@@ -53,7 +53,7 @@ class TicTacToeModel:
                 if(board[i][j]==0):
                     flag = 0
         
-        return self.win(board, 1) or self.win(board, 2) or flag
+        return self.win(board, 1) or self.win(board, -1) or flag
 
     def tryMakingAMove(self,board,next,turn):
         i = next//self.GRID_SIZE

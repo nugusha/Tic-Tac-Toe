@@ -80,11 +80,8 @@ class MiniMaxPlayer:
         length = len(ss)
         for i in range(length):
             for j in range(length):
-                if(s[i][j]==2):
-                    s[i][j]=-1
                 if(s[i][j]!=0):
                     cnt += 1
-        
 
         treeRoot = Node(s,cnt,self.x)
         treeRoot.build_tree()
