@@ -65,6 +65,7 @@ class TicTacToe:
     def run(self):
         players = self.Model.players # [player1,player2]
         turn = 1
+        Log = []
 
         board = self.Model.board
         self.draw_board(board)
@@ -75,14 +76,19 @@ class TicTacToe:
             next = players[turn-1].make_a_move(board,pygame)
             end = time.time()
             print(end - start)
-
+            
             if(self.Model.tryMakingAMove(board,next,turn)==0):
                 continue
 
+            move_now = [next//self.GRID_SIZE,next%self.GRID_SIZE]
+            print(move_now)
+            Log.append(move_now)
+            
             turn = 3 - turn
             self.draw_board(board)
 
         self.finish(board,players)
+        print(Log)
         sys.exit()
 class TicTacToeStatic:
     @staticmethod
@@ -122,6 +128,19 @@ class TicTacToeStatic:
                     if(s[i,j]==0):
                         e = None                        
         return e
+    
+    @staticmethod
+    def nearest(s,r,c):
+        mi = 999999999
+        length = len(s)
+        for i in range(length):
+            for j in range(length):
+                if(s[i][j]!=0):
+                    mi = min(mi,abs(i-r)+abs(j-c))
+        if(mi == 999999999):
+            mi = 0
+        return mi
+
 
     @staticmethod
     def removecopies(s,m):
@@ -129,28 +148,32 @@ class TicTacToeStatic:
         copies = []
         newboards = []
         
-        for move in m:
+        for i in range(len(m)):
+            move = m[i]
             new_s = s.copy()
             r = move[0]
             c = move[1]
             new_s[r][c] = 10
+            if(TicTacToeStatic.nearest(s,r,c)>2):
+                copies.append(i)
             boards.append(new_s)
             new_s=None
 
-        for i in range(len(m)):
-            for j in range(len(m)):
-                if(i>=j):
-                    continue
-                if(np.array_equal(boards[i],np.flipud(boards[j]))):
-                    copies.append(j)
-                elif(np.array_equal(boards[i],np.fliplr(boards[j]))):
-                    copies.append(j)
-                elif(np.array_equal(boards[i],np.rot90(boards[j]))):
-                    copies.append(j)
-                elif(np.array_equal(boards[i],np.rot90(np.rot90(boards[j])))):
-                    copies.append(j)
-                elif(np.array_equal(boards[i],np.rot90(np.rot90(np.rot90(boards[j]))))):
-                    copies.append(j)
+        if(len(s)!=10):
+            for i in range(len(m)):
+                for j in range(len(m)):
+                    if(i>=j or i in copies or j in copies):
+                        continue
+                    if(np.array_equal(boards[i],np.flipud(boards[j]))):
+                        copies.append(j)
+                    elif(np.array_equal(boards[i],np.fliplr(boards[j]))):
+                        copies.append(j)
+                    elif(np.array_equal(boards[i],np.rot90(boards[j]))):
+                        copies.append(j)
+                    elif(np.array_equal(boards[i],np.rot90(np.rot90(boards[j])))):
+                        copies.append(j)
+                    elif(np.array_equal(boards[i],np.rot90(np.rot90(np.rot90(boards[j]))))):
+                        copies.append(j)
         
         for i in range(len(m)):
             if(i in copies):

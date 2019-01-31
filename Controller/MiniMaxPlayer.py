@@ -76,16 +76,15 @@ class MiniMaxPlayer:
 
     def make_a_move(self,ss,pygame=0):
         s=np.array(ss.copy())
+        cnt = 0
         length = len(ss)
         for i in range(length):
             for j in range(length):
                 if(s[i][j]==2):
                     s[i][j]=-1
+                if(s[i][j]!=0):
+                    cnt += 1
         
-        cnt = 0
-        for i in range(length):
-            for j in range(length):
-                cnt += s[i][j]
 
         treeRoot = Node(s,cnt,self.x)
         treeRoot.build_tree()
@@ -97,6 +96,5 @@ class MiniMaxPlayer:
                 r = move[0]
                 c = move[1]
                 break
-                
-        print(r*len(s)+c)
+
         return r*len(s)+c

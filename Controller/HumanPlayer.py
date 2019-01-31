@@ -4,7 +4,7 @@ import random
 import sys
 
 class HumanPlayer():
-    def __init__(self,name = 'Human'):
+    def __init__(self,x = 1,name = 'Human'):
         self.name = name
     def make_a_move(self,board,pygame):
         GRID_SIZE = len(board[0])
