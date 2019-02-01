@@ -2,6 +2,7 @@ import numpy as np
 import math
 from RandomBot import RandomBot
 from TicTacToe import TicTacToeStatic
+from PrioritizeMoves import PrioritizeMoves
 
 class Node:
     def __init__(self,s,cnt,x=1, parent=None):
@@ -19,6 +20,13 @@ class Node:
             return
 
         moves = TicTacToeStatic.available_moves(self.s)
+        NTWG = TicTacToeStatic.getNTW()
+        PM = PrioritizeMoves(NTWG,len(self.s))
+        PM_moves = PM.PrioritizeMoves(self.s,self.x,moves)
+
+        if(moves!=PM_moves):
+            #print(moves,PM_moves)
+            moves = PM_moves
         if(self.cnt<=1000):
             moves = TicTacToeStatic.removecopies(self.s,moves)
 
@@ -118,10 +126,27 @@ class MonteCarloTreeSearchPlayer:
             for j in range(length):
                 if(s[i][j]!=0):
                     cnt += 1
+                    
 
         if(cnt == 0):
             return (len(s)//2-1)*len(s)+(len(s)//2-1)
         
+        moves = TicTacToeStatic.available_moves(s)
+        NTWG = TicTacToeStatic.getNTW()
+        PM = PrioritizeMoves(NTWG,len(s))
+        PM_moves = PM.PrioritizeMoves(s,self.x,moves)
+
+        if(moves!=PM_moves):
+            #print(moves,PM_moves)
+            moves = PM_moves
+            print(PM_moves," <---------------PM_moves")
+            if(len(moves)==1):
+                print("!!!")
+                a = moves[0] 
+                return a[0]*len(s)+a[1]
+        
+        
+
         root = Node(s,cnt,self.x)
         root.build_tree(n_iter)
 

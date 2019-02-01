@@ -10,7 +10,7 @@ YELLOW = (255,255,0)
 WHITE = (255,255,255)
 
 class TicTacToeModel:
-    def __init__(self, needToWin, GRID_SIZE,player1,player2):
+    def __init__(self, needToWin, GRID_SIZE,player1=0,player2=0):
         self.NEED_TO_WIN = needToWin
         self.GRID_SIZE = GRID_SIZE
         self.players = [player1,player2]
@@ -20,14 +20,16 @@ class TicTacToeModel:
     def create_board(self,n):
         return [[0] * n for i in range(n)]
 
-    def check_line(self,board,player,i,j,x,y):
-        if(i+(self.NEED_TO_WIN-1)*x < 0 or i+(self.NEED_TO_WIN-1)*x>=self.GRID_SIZE):
+    def check_line(self,board,player,i,j,x,y,howmany=-1):
+        if(howmany==-1):
+            howmany = self.NEED_TO_WIN
+        if(i+(howmany-1)*x < 0 or i+(howmany-1)*x>=self.GRID_SIZE):
             return 0
-        if(j+(self.NEED_TO_WIN-1)*y < 0 or j+(self.NEED_TO_WIN-1)*y>=self.GRID_SIZE):
+        if(j+(howmany-1)*y < 0 or j+(howmany-1)*y>=self.GRID_SIZE):
             return 0
         
         flag = 1
-        for q in range(self.NEED_TO_WIN):
+        for q in range(howmany):
             if(board[i+q*x][j+q*y]!=player):
                 flag = 0
         return flag

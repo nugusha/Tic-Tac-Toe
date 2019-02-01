@@ -57,7 +57,10 @@ class TicTacToe:
             self.View.headline(players[1].name + " Wins!")
         else:
             self.View.headline("Draw!!!")
-        self.View.WAIT(3000)
+        if(len(board)==3):
+            self.View.WAIT(3000)
+        else:
+            self.View.WAIT(30000)
 
     def draw_turn(self,player):
         self.View.draw_turn(player.name)
@@ -71,7 +74,7 @@ class TicTacToe:
         self.draw_board(board)
 
         while(self.gameover(board)==False):
-            self.draw_turn(players[turn-1])
+            self.draw_turn(players[turn!=1])
             start = time.time()
             next = players[(turn!=1)].make_a_move(board,pygame)
             end = time.time()
@@ -141,6 +144,9 @@ class TicTacToeStatic:
             mi = 0
         return mi
 
+    @staticmethod
+    def getNTW():
+        return needToWinGLOBAL
 
     @staticmethod
     def removecopies(s,m):

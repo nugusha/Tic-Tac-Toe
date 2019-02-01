@@ -13,5 +13,6 @@ from MonteCarloTreeSearchPlayer import MonteCarloTreeSearchPlayer
 if __name__ == '__main__':
     p1 = MonteCarloTreeSearchPlayer(1,"MCTS1")
     p2 = MonteCarloTreeSearchPlayer(2,"MCTS2")
-    A_TicTacToe = TicTacToe(5,10,p1,p2)
+    hp = HumanPlayer("Nugusha")
+    A_TicTacToe = TicTacToe(3,3,p1,p2)
     A_TicTacToe.run()
