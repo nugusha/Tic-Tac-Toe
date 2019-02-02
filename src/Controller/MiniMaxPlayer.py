@@ -1,5 +1,4 @@
 import numpy as np
-import sys
 from TicTacToe import TicTacToeStatic
 from random import shuffle
 
@@ -72,7 +71,7 @@ class MiniMaxPlayer:
         self.name = name
         self.x = None
 
-    def make_a_move(self,ss,pygame=0):
+    def make_a_move(self,ss):
         s=np.array(ss.copy())
         cnt = 0
         length = len(ss)

@@ -1,13 +1,7 @@
-from os import system
-import numpy as np
-import pygame
-import random
 import sys
 sys.path.append('./Controller')
 from TicTacToe import TicTacToe
-from RandomBot import RandomBot
 from HumanPlayer import HumanPlayer
-from MiniMaxPlayer import MiniMaxPlayer
 from MonteCarloTreeSearchPlayer import MonteCarloTreeSearchPlayer
 
 if __name__ == '__main__':

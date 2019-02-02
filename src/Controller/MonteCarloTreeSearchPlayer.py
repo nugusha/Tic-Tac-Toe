@@ -116,7 +116,7 @@ class MonteCarloTreeSearchPlayer:
         self.name = name
         self.x = None
 
-    def make_a_move(self,s,pygame=0,n_iter=100):
+    def make_a_move(self,s,n_iter=100):
         s = np.array(s)
         length = len(s)
         cnt = 0

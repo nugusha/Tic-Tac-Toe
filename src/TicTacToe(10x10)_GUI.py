@@ -1,7 +1,3 @@
-from os import system
-import numpy as np
-import pygame
-import random
 import sys
 sys.path.append('./Controller')
 from TicTacToe import TicTacToe
@@ -13,4 +9,3 @@ if __name__ == '__main__':
     p2 = RandomBot('Bot2')
     A_TicTacToe = TicTacToe(5,10,p1,p2)
     A_TicTacToe.run()
-    

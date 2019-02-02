@@ -46,6 +46,12 @@ class TicTacToeView:
     
     def WAIT(self,duration):
         pygame.time.wait(duration)
+
+    def endgame(self,length):
+        if(length==3):
+            self.WAIT(3000)
+        else:
+            self.WAIT(30000)
     
     def headline(self,headline):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))
@@ -53,3 +59,6 @@ class TicTacToeView:
         label = self.myfont.render(headline, 1 , YELLOW)
         self.screen.blit(label, (25, 10))
         pygame.display.update()
+    
+    def getPYGAME(self):
+        return pygame

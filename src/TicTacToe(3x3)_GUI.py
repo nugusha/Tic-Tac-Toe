@@ -1,7 +1,3 @@
-from os import system
-import numpy as np
-import pygame
-import random
 import sys
 sys.path.append('./Controller')
 from TicTacToe import TicTacToe

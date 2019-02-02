@@ -1,6 +1,4 @@
-from os import system
 import numpy as np
-import pygame
 import random
 import sys
 import time
@@ -59,10 +57,7 @@ class TicTacToe:
             self.View.headline(players[1].name + " Wins!")
         else:
             self.View.headline("Draw!!!")
-        if(len(board)==3):
-            self.View.WAIT(3000)
-        else:
-            self.View.WAIT(30000)
+        self.View.endgame(len(board))
 
     def draw_turn(self,player):
         self.View.draw_turn(player.name)
@@ -78,7 +73,7 @@ class TicTacToe:
         while(self.gameover(board)==False):
             self.draw_turn(players[turn!=1])
             start = time.time()
-            next = players[(turn!=1)].make_a_move(board,pygame)
+            next = players[(turn!=1)].make_a_move(board)
             end = time.time()
             print(end - start)
             

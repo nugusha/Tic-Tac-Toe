@@ -1,7 +1,3 @@
-from os import system
-import numpy as np
-import random
-import sys
 
 BLUE = (0,0,255)
 BLACK = (0,0,0)

@@ -1,12 +1,10 @@
-from os import system
-import numpy as np
-import random
 import sys
+import pygame
 
 class HumanPlayer():
     def __init__(self,x = 1,name = 'Human'):
         self.name = name
-    def make_a_move(self,board,pygame):
+    def make_a_move(self,board):
         GRID_SIZE = len(board[0])
         width = pygame.display.get_surface().get_size()[0]
         SQUARESIZE = width // GRID_SIZE
