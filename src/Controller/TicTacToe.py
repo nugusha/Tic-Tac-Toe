@@ -23,6 +23,8 @@ class TicTacToe:
         self.Model = TicTacToeModel(needToWin,GRID_SIZE,player1,player2)
         self.View = TicTacToeView(GRID_SIZE)
         self.GRID_SIZE = GRID_SIZE
+        player1.x = 1
+        player2.x = -1
         
     def gameover(self,board):
         self.View.gameover()

@@ -68,11 +68,9 @@ class Node:
             self.score = score2
 
 class MiniMaxPlayer:
-    def __init__(self,x,name='MiniMax'):
+    def __init__(self,name='MiniMax'):
         self.name = name
-        if(x==2):
-            x=-1
-        self.x = x
+        self.x = None
 
     def make_a_move(self,ss,pygame=0):
         s=np.array(ss.copy())

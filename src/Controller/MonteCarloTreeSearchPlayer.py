@@ -114,9 +114,7 @@ class UCB:
 class MonteCarloTreeSearchPlayer:
     def __init__(self,x,name='MCTS'):
         self.name = name
-        if(x==2):
-            x=-1
-        self.x = x
+        self.x = None
 
     def make_a_move(self,s,pygame=0,n_iter=100):
         s = np.array(s)
