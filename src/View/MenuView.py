@@ -1,5 +1,6 @@
 import pygame
 import sys
+from TicTacToe import TicTacToe
 
 BLUE = (0,0,255)
 BLACK = (0,0,0)
@@ -94,6 +95,11 @@ class MenuView:
                             b.Toggle()
 
         print("!!!")
+
+
+        A_TicTacToe = TicTacToe(3,3,b1p,b2p)
+        A_TicTacToe.run()
+
         pygame.time.wait(30000)
 
 class Text:
