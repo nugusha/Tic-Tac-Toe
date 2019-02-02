@@ -10,10 +10,10 @@ class TicTacToeModel:
         self.NEED_TO_WIN = needToWin
         self.GRID_SIZE = GRID_SIZE
         self.players = [player1,player2]
-        self.board = self.create_board(self.GRID_SIZE)
         self.N = 0
         
-    def create_board(self,n):
+    def create_board(self):
+        n = self.GRID_SIZE
         return [[0] * n for i in range(n)]
 
     def check_line(self,board,player,i,j,x,y,howmany=-1):

@@ -46,12 +46,14 @@ class TicTacToeView:
     
     def WAIT(self,duration):
         pygame.time.wait(duration)
-
-    def endgame(self,length):
-        if(length==3):
-            self.WAIT(3000)
-        else:
-            self.WAIT(30000)
+    
+    def WaitForAClick(self):
+        while(True):
+            for event in pygame.event.get():
+                if (event.type == pygame.MOUSEBUTTONDOWN):
+                    return                    
+                if (event.type == pygame.QUIT):
+                    sys.exit()
     
     def headline(self,headline):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))

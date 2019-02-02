@@ -20,6 +20,7 @@ class TicTacToe:
         self.NEED_TO_WIN = needToWin
         self.Model = TicTacToeModel(needToWin,GRID_SIZE,player1,player2)
         self.View = TicTacToeView(GRID_SIZE)
+        self.View.controller = self
         self.GRID_SIZE = GRID_SIZE
         player1.x = 1
         player2.x = -1
@@ -57,17 +58,22 @@ class TicTacToe:
             self.View.headline(players[1].name + " Wins!")
         else:
             self.View.headline("Draw!!!")
-        self.View.endgame(len(board))
 
     def draw_turn(self,player):
         self.View.draw_turn(player.name)
-
+    
     def run(self):
+        while(True):
+            self.run2()
+            self.View.WaitForAClick()
+        sys.exit()
+
+    def run2(self):
         players = self.Model.players # [player1,player2]
         turn = 1
         Log = []
 
-        board = self.Model.board
+        board = self.Model.create_board()
         self.draw_board(board)
 
         while(self.gameover(board)==False):
@@ -89,7 +95,7 @@ class TicTacToe:
 
         self.finish(board,players)
         print(Log)
-        sys.exit()
+
 class TicTacToeStatic:
     @staticmethod
     def available_moves(s):
