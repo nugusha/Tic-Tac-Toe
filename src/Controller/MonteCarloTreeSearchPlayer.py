@@ -112,7 +112,7 @@ class UCB:
         return b
 
 class MonteCarloTreeSearchPlayer:
-    def __init__(self,x,name='MCTS'):
+    def __init__(self,name='MCTS'):
         self.name = name
         self.x = None
 
