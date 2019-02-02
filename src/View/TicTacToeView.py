@@ -32,7 +32,7 @@ class TicTacToeView:
                 if( board[r][c] == 0):
                     color = WHITE
                 pygame.draw.circle(self.screen, color, (int(c*SQUARESIZE+SQUARESIZE/2),int((r+1)*SQUARESIZE+SQUARESIZE/2)), RADIUS)
-                pygame.display.update()
+        pygame.display.update()
 
     def draw_turn(self,name):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))
