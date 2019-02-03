@@ -8,3 +8,6 @@ Tic-Tac-Toe in Python
       * MiniMaxPlayer() - AI using MiniMax Algorithm + Alpha-Beta pruning
       * HumanPlayer() - user input using GUI
       * RandomBot() - randomly placing marks
+
+nintsichkhaidze
+
