@@ -19,21 +19,15 @@ class MenuView:
         self.height = (GRID_SIZE + 1) * self.SQUARESIZE
         self.size = (self.width, self.height)
         self.screen = pygame.display.set_mode(self.size)
-        self.players = players
         global Screen 
         Screen = self.screen
-        self.buttons1 = []
-        self.buttons2 = []
 
     
-    def draw_Menu(self):
+    def draw_Menu(self,players):
         pygame.draw.rect(self.screen, MENU_COLOR, (0, 0, self.width, self.height ))
         pygame.display.update()
 
-        number_of_players = len(self.players)
-
-        Q1 = self.width / 3
-        Q3 = self.width / 3 * 2
+        number_of_players = len(players)
 
         LRMargin = self.width / 20
         TDMargin = self.height / 30
@@ -46,62 +40,31 @@ class MenuView:
         wm = w - 2 * LRMargin
         hm = h - 2 * TDMargin
 
+        buttons1 = []
+        buttons2 = []
+
         for i in range(number_of_players):
             x = LRMargin
             y = TOP+TDMargin+i*h
             
-            B1 = Button(self.screen,x,y,w,h,wm,hm,self.players[i].name)
-            B2 = Button(self.screen,x+w,y,w,h,wm,hm,self.players[i].name)
-            B1.Toggle()
-            B2.Toggle()
+            B1 = Button(self.screen,x,y,w,h,wm,hm,players[i].name)
+            B2 = Button(self.screen,x+w,y,w,h,wm,hm,players[i].name)
 
-            self.buttons1.append(B1)
-            self.buttons2.append(B2)
+            buttons1.append(B1)
+            buttons2.append(B2)
         
         names_left = 27
         names_up = 8
 
         PlayButton = Button(self.screen,x+w/2,TOP+TDMargin+(number_of_players)*h,w/2,h/5*4,wm,hm,"PLAY")
-        PlayButton.Toggle()
 
         Text.headline("Player 1",names_left,names_up,20)
         Text.headline("Player 2",names_left+w,names_up,20)
 
         pygame.display.update()
+
+        return buttons1,buttons2,PlayButton
         
-        flag = 0
-        b1p = None
-        b2p = None
-
-        while(flag==0):
-            for event in pygame.event.get():
-                if (event.type == pygame.QUIT):
-                    sys.exit()
-                if (event.type == pygame.MOUSEBUTTONDOWN):
-                    if(b1p!=None and b2p!=None):
-                        if(PlayButton.isClicked(event)==1):
-                            flag = 1
-                    for i,b in enumerate(self.buttons1):
-                        if(b.isClicked(event)>0):
-                            b1p = self.players[i]
-                            for bb in self.buttons1:
-                                bb.UnToggle()
-                            b.Toggle()
-                    for i,b in enumerate(self.buttons2):
-                        if(b.isClicked(event)>0):
-                            b2p = self.players[i]
-                            for bb in self.buttons2:
-                                bb.UnToggle()
-                            b.Toggle()
-
-        print("!!!")
-
-
-        A_TicTacToe = TicTacToe(3,3,b1p,b2p)
-        A_TicTacToe.run()
-
-        pygame.time.wait(30000)
-
 class Text:
     @staticmethod
     def headline(headline,x,y,size):
@@ -117,8 +80,8 @@ class Button:
         self.color = [YELLOW,RED]
         self.toggle = 0
         self.name = name
-        
         self.x,self.y,self.w,self.h,self.wm,self.hm = x,y,w,h,wm,hm 
+        self.Toggle()
 
     def Toggle(self):
         self.draw_button(self.color[self.toggle])

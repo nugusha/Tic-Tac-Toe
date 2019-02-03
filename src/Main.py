@@ -7,7 +7,7 @@ from RandomBot import RandomBot
 from HumanPlayer import HumanPlayer
 from MiniMaxPlayer import MiniMaxPlayer
 from MonteCarloTreeSearchPlayer import MonteCarloTreeSearchPlayer
-from MenuView import MenuView
+from MainController import MainController
 
 if __name__ == '__main__':
 
@@ -18,8 +18,8 @@ if __name__ == '__main__':
     players.append(RandomBot())
 
 
-    Menu = MenuView(3,players)
-    Menu.draw_Menu()
+    Menu = MainController(3,players)
+    Menu.run()
 
 
     for event in pygame.event.get():
