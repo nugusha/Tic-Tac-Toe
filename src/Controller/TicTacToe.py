@@ -14,7 +14,7 @@ YELLOW = (255,255,0)
 WHITE = (255,255,255)
 needToWinGLOBAL = 0
 class TicTacToe:
-    def __init__(self, needToWin, GRID_SIZE,player1,player2):
+    def __init__(self, needToWin, GRID_SIZE,player1 = None,player2 = None):
         global needToWinGLOBAL
         needToWinGLOBAL = needToWin
         self.NEED_TO_WIN = needToWin
@@ -22,8 +22,10 @@ class TicTacToe:
         self.View = TicTacToeView(GRID_SIZE)
         self.View.controller = self
         self.GRID_SIZE = GRID_SIZE
-        player1.x = 1
-        player2.x = -1
+        if(player1 != None):
+            player1.x = 1
+        if(player2 != None):
+            player2.x = -1
         
     def gameover(self,board):
         self.View.gameover()
@@ -110,7 +112,7 @@ class TicTacToeStatic:
     @staticmethod
     def Status(s):
         if(len(s)!=3):                
-            TTT = TicTacToe(needToWinGLOBAL,len(s),None,None)
+            TTT = TicTacToe(needToWinGLOBAL,len(s))
             return TTT.Status(s)
 
         all = []

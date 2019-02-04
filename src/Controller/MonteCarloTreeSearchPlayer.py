@@ -137,7 +137,7 @@ class MonteCarloTreeSearchPlayer:
         if(moves!=PM_moves):
             #print(moves,PM_moves)
             moves = PM_moves
-            print(PM_moves," <---------------PM_moves")
+            #print(PM_moves," <---------------PM_moves")
             if(len(moves)==1):
                 print("!!!")
                 a = moves[0] 
@@ -148,7 +148,7 @@ class MonteCarloTreeSearchPlayer:
         root = Node(s,cnt,self.x)
         root.build_tree(n_iter)
 
-        most = 0
+        most = -1
         for child in root.c:
             if(child.N>most):
                 most = child.N

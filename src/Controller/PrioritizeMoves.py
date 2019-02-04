@@ -27,8 +27,6 @@ class PrioritizeMoves:
                     return move
             return (-1,-1)
 
-        if(len(board)!=3):
-            return []
         new_moves = []
         new_move = (-1,-1)
         for move in moves:

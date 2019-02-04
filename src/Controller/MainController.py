@@ -8,6 +8,7 @@ RED = (255,0,0)
 YELLOW = (255,255,0)
 WHITE = (255,255,255)
 MENU_COLOR = (234, 255, 34)
+needToWinDict = {3: 3, 10: 5}
 
 class MainController:
     def __init__(self,GRID_SIZE,players):
@@ -59,9 +60,9 @@ class MainController:
                             b.Toggle()
 
         print("!!!")
-
-
-        A_TicTacToe = TicTacToe(GRID_SIZE,GRID_SIZE,p1,p2)
+        
+        #             TicTacToe(needToWin, GRID_SIZE,player1,player2)
+        A_TicTacToe = TicTacToe(needToWinDict[GRID_SIZE],GRID_SIZE,p1,p2)
         A_TicTacToe.run()
 
         pygame.time.wait(30000)
