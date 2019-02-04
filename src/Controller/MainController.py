@@ -16,20 +16,35 @@ class MainController:
 
     
     def run(self):
-        buttons1,buttons2,PlayButton = self.View.draw_Menu(self.players)
+        buttons1,buttons2,PlayButton,GRID3,GRID10 = self.View.draw_Menu(self.players)
         
         flag = 0
         p1 = None
         p2 = None
+        p3 = None
 
         while(flag==0):
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
                     sys.exit()
                 if (event.type == pygame.MOUSEBUTTONDOWN):
-                    if(p1!=None and p2!=None):
+                    if(p1!=None and p2!=None and p3!=None):
                         if(PlayButton.isClicked(event)==1):
                             flag = 1
+                            p3=2
+                            
+                    if (GRID3.isClicked(event)==1 and p3!=2):
+                        GRID3.Toggle()
+                        GRID10.UnToggle()
+                        GRID_SIZE=3
+                        p3=1
+
+                    if (GRID10.isClicked(event)==1 and p3!=2):
+                        GRID10.Toggle()
+                        GRID3.UnToggle()
+                        GRID_SIZE=10
+                        p3=1
+                   
                     for i,b in enumerate(buttons1):
                         if(b.isClicked(event)>0):
                             p1 = self.players[i]
@@ -46,7 +61,7 @@ class MainController:
         print("!!!")
 
 
-        A_TicTacToe = TicTacToe(3,3,p1,p2)
+        A_TicTacToe = TicTacToe(GRID_SIZE,GRID_SIZE,p1,p2)
         A_TicTacToe.run()
 
         pygame.time.wait(30000)
