@@ -1,5 +1,6 @@
 import pygame
 import sys
+from copy import deepcopy
 from TicTacToe import TicTacToe
 from MenuView import MenuView
 BLUE = (0,0,255)
@@ -48,13 +49,13 @@ class MainController:
                    
                     for i,b in enumerate(buttons1):
                         if(b.isClicked(event)>0):
-                            p1 = self.players[i]
+                            p1 = deepcopy(self.players[i])
                             for bb in buttons1:
                                 bb.UnToggle()
                             b.Toggle()
                     for i,b in enumerate(buttons2):
                         if(b.isClicked(event)>0):
-                            p2 = self.players[i]
+                            p2 = deepcopy(self.players[i])
                             for bb in buttons2:
                                 bb.UnToggle()
                             b.Toggle()
