@@ -6,6 +6,7 @@ sys.path.append('./View')
 from TicTacToeView import TicTacToeView
 sys.path.append('./Model')
 from TicTacToeModel import TicTacToeModel
+from stubView import stubView
 
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
@@ -14,13 +15,18 @@ YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 needToWinGLOBAL = 0
 class TicTacToe:
-    def __init__(self, needToWin, GRID_SIZE, player1=None, player2=None):
+    def __init__(self, needToWin, GRID_SIZE, player1=None, player2=None, stub = False):
         global needToWinGLOBAL
         needToWinGLOBAL = needToWin
         self.NEED_TO_WIN = needToWin
         self.Model = TicTacToeModel(needToWin, GRID_SIZE, player1, player2)
-        self.View = TicTacToeView(GRID_SIZE)
-        self.View.controller = self
+        self.stub = stub    
+        if(stub == False):
+            self.View = TicTacToeView(GRID_SIZE)
+            self.View.controller = self
+        else:
+            self.View = stubView()
+        
         self.GRID_SIZE = GRID_SIZE
         if(player1 is not None):
             player1.x = 1
@@ -67,8 +73,9 @@ class TicTacToe:
     def run(self):
         while(True):
             Status = self.run2()
+            if(self.stub == True):
+                break
             self.View.WaitForAClick()
-        
         return Status
 
     def run2(self):
@@ -84,20 +91,20 @@ class TicTacToe:
             start = time.time()
             next = players[(turn != 1)].make_a_move(board)
             end = time.time()
-            print(end - start)
+            #print(end - start)
             
             if(self.Model.tryMakingAMove(board, next, turn) == 0):
                 continue
 
             move_now = [next//self.GRID_SIZE, next%self.GRID_SIZE]
-            print(move_now)
+            #print(move_now)
             Log.append(move_now)
             
             turn *= -1
             self.draw_board(board)
 
         self.finish(board, players)
-        print(Log)
+        #print(Log)
 
         return self.Status(board)
 

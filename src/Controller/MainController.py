@@ -63,7 +63,7 @@ class MainController:
         print("!!!")
         
         #             TicTacToe(needToWin, GRID_SIZE,player1,player2)
-        A_TicTacToe = TicTacToe(needToWinDict[GRID_SIZE],GRID_SIZE,p1,p2)
+        A_TicTacToe = TicTacToe(needToWinDict[GRID_SIZE],GRID_SIZE,p1,p2,False)
         A_TicTacToe.run()
 
         pygame.time.wait(30000)
