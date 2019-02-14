@@ -1,5 +1,7 @@
 import pygame
 import sys
+from Button import Button
+from Button import Text
 
 BLUE = (0,0,255)
 BLACK = (0,0,0)
@@ -17,11 +19,16 @@ class TicTacToeView:
         self.size = (self.width, self.height)
         self.screen = pygame.display.set_mode(self.size)
         self.myfont = pygame.font.SysFont("monospace", self.SQUARESIZE//3)
+        self.BackButton = None
     
     def draw_board(self,board):
         GRIDSIZE = len(board[0])
         SQUARESIZE = self.SQUARESIZE
         RADIUS = self.RADIUS
+        
+        self.BackButton = Button(self.screen, self.width-80, 0, 80, 50, 75, 45, "Back")
+        self.BackButton.draw_button(YELLOW)
+        print("!!")
         for c in range(GRIDSIZE):
             for r in range(GRIDSIZE):
                 pygame.draw.rect(self.screen, BLUE, (c*SQUARESIZE,(r+1)*SQUARESIZE, SQUARESIZE, SQUARESIZE ))
@@ -36,7 +43,8 @@ class TicTacToeView:
 
     def draw_turn(self,name):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))
-        self.headline(name + "'s Turn!")
+        self.headline(name)
+        self.BackButton.draw_button(YELLOW)
         pygame.display.update()
     
     def gameover(self):
@@ -51,12 +59,22 @@ class TicTacToeView:
         while(True):
             for event in pygame.event.get():
                 if (event.type == pygame.MOUSEBUTTONDOWN):
-                    return                    
+                    if(self.BackButton.isClicked(event)):
+                        return 1000
+                    return 0
                 if (event.type == pygame.QUIT):
                     sys.exit()
+                    
+    def isBackButtonClicked(self):
+        for event in pygame.event.get():
+            if (event.type == pygame.MOUSEBUTTONDOWN):
+                if(self.BackButton.isClicked(event)):
+                    return True
+        return False
     
     def headline(self,headline):
         pygame.draw.rect(self.screen, BLACK, (0,0,self.width,self.SQUARESIZE))
+        self.BackButton.draw_button(YELLOW)
         print(headline)
         label = self.myfont.render(headline, 1 , YELLOW)
         self.screen.blit(label, (25, 10))

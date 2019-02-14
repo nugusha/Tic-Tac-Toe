@@ -20,7 +20,7 @@ class TicTacToe:
         needToWinGLOBAL = needToWin
         self.NEED_TO_WIN = needToWin
         self.Model = TicTacToeModel(needToWin, GRID_SIZE, player1, player2)
-        self.stub = stub    
+        self.stub = stub
         if(stub == False):
             self.View = TicTacToeView(GRID_SIZE)
             self.View.controller = self
@@ -73,9 +73,11 @@ class TicTacToe:
     def run(self):
         while(True):
             Status = self.run2()
-            if(self.stub == True):
+            if(self.stub == True or Status == 1000 or self.View.isBackButtonClicked()):
                 break
-            self.View.WaitForAClick()
+            wfc = self.View.WaitForAClick()
+            if(wfc == 1000):
+                break
         return Status
 
     def run2(self):
@@ -87,6 +89,9 @@ class TicTacToe:
         self.draw_board(board)
 
         while(self.gameover(board) == False):
+            if(self.View.isBackButtonClicked()):
+                return 1000
+
             self.draw_turn(players[(turn != 1)])
             start = time.time()
             next = players[(turn != 1)].make_a_move(board)
