@@ -91,18 +91,20 @@ class TicTacToe:
         while(self.gameover(board) == False):
             if(self.View.isBackButtonClicked()):
                 return 1000
+            players[0].now = None
+            players[1].now = None
 
             self.draw_turn(players[(turn != 1)])
             start = time.time()
             next = players[(turn != 1)].make_a_move(board)
             end = time.time()
-            #print(end - start)
+            print(end - start)
             
             if(self.Model.tryMakingAMove(board, next, turn) == 0):
                 continue
 
             move_now = [next//self.GRID_SIZE, next%self.GRID_SIZE]
-            #print(move_now)
+            print(move_now)
             Log.append(move_now)
             
             turn *= -1
