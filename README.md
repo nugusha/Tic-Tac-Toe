@@ -1,6 +1,14 @@
 # Tic-Tac-Toe
 Tic-Tac-Toe in Python
 
+# 4(5) Different players
+
+      * MonteCarloTreeSearchPlayer() - AI using Monte Carlo Tree Search + Move Prioritization + forced moves
+      * MiniMaxPlayer() - AI using MiniMax Algorithm + Alpha-Beta pruning
+      * HumanPlayer() - user input using GUI
+      * RandomBot() - randomly placing marks
+      * MiniMaxPlayerV2() - creates a full game tree and reuses for each move (not in UI)
+
 ## How to Play (User Interface):
 1. Clone the repository into a suitable folder
 2. Navigate to and run "src/Main.py"
@@ -21,12 +29,3 @@ Tic-Tac-Toe in Python
      7    8    9<br>
 5. Input the number cooresponding to where you would like to place your "X" or "O"     
 6. First to connect 3 in a row/column/diagonal wins!
-
-
-# 4(5) Different players
-
-      * MonteCarloTreeSearchPlayer() - AI using Monte Carlo Tree Search + Move Prioritization + forced moves
-      * MiniMaxPlayer() - AI using MiniMax Algorithm + Alpha-Beta pruning
-      * HumanPlayer() - user input using GUI
-      * RandomBot() - randomly placing marks
-      * MiniMaxPlayerV2() - creates a full game tree and reuses for each move (not in UI)
