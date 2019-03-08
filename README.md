@@ -23,7 +23,7 @@ Tic-Tac-Toe in Python
 6. First to connect 3 in a row/column/diagonal wins!
 
 
-### 4(5) Different players
+# 4(5) Different players
 
       * MonteCarloTreeSearchPlayer() - AI using Monte Carlo Tree Search + Move Prioritization + forced moves
       * MiniMaxPlayer() - AI using MiniMax Algorithm + Alpha-Beta pruning
