@@ -8,7 +8,7 @@ Tic-Tac-Toe in Python
 4. Choose the grid size: 3x3 or 10x10
 5. PLAY!
 6. When the game is finished click anywhere to restart the game
-7. Click BACK button at the top right corner to return to the Menu. goto->4.
+7. Click BACK button at the top right corner to return to the Menu. goto->3.
 
 
 ## How to Play (command line):
