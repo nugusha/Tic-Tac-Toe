@@ -1,7 +1,17 @@
 # Tic-Tac-Toe
 Tic-Tac-Toe in Python
 
-## How to Play:
+## How to Play (User Interface):
+1. Clone the repository into a suitable folder
+2. Navigate to and run "src/Main.py"
+3. Choose algorithms for both player1 and player2
+4. Choose the grid size: 3x3 or 10x10
+5. PLAY!
+6. When the game is finished click anywhere to restart the game
+7. Click BACK button at the top right corner to return to the Menu. goto->4.
+
+
+## How to Play (command line):
 1. Clone the repository into a suitable folder
 2. Navigate to and run "MyTicTacToe.py"
 3. There will be a prompt asking you to choose "X" or "O" and whether you want to go first or second
@@ -13,9 +23,10 @@ Tic-Tac-Toe in Python
 6. First to connect 3 in a row/column/diagonal wins!
 
 
-### 3 Different players
+### 4(5) Different players
 
       * MonteCarloTreeSearchPlayer() - AI using Monte Carlo Tree Search + Move Prioritization + forced moves
       * MiniMaxPlayer() - AI using MiniMax Algorithm + Alpha-Beta pruning
       * HumanPlayer() - user input using GUI
       * RandomBot() - randomly placing marks
+      * MiniMaxPlayerV2() - creates a full game tree and reuses for each move (not in UI)
