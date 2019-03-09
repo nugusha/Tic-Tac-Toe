@@ -50,17 +50,20 @@ class Node:
         rand_play = RandomBot()
         cur_s = self.s
         turn = self.x
-
-        while(TicTacToeStatic.Status(cur_s)==None):
+        lst = None
+        cnt_now = self.cnt
+        while(TicTacToeStatic.Status(cur_s, lst, cnt_now) is None):
             move = rand_play.make_a_move(cur_s)
             r = move // len(self.s)
             c = move % len(self.s)
+            lst = r,c
+            cnt_now += 1
             new_s = cur_s.copy()
             new_s[r,c]=turn
             cur_s = new_s
             turn*=-1
 
-        e = TicTacToeStatic.Status(cur_s)
+        e = TicTacToeStatic.Status(cur_s, lst, cnt_now)
 
         return e
 

@@ -30,7 +30,37 @@ class TicTacToeModel:
                 flag = 0
         return flag
 
-    def win(self, board, player):
+    def check_line2(self, board, player, ii, jj, lastmove):
+        c_i,c_j = lastmove
+        x = 0
+        i,j = c_i,c_j
+        while(board[i][j]==player):
+            x +=1
+            i += ii
+            j += jj
+            if(j>=len(board) or i>=len(board) or j<0 or i<0):
+                break
+            
+        i,j = c_i,c_j
+        while(board[i][j]==player):
+            x +=1
+            i -= ii
+            j -= jj
+            if(j>=len(board) or i>=len(board) or j<0 or i<0):
+                break
+        return x-(board[c_i][c_j]==player)
+
+    def win(self, board, player, lastmove = None):
+        if(lastmove!=None):
+            cnt_hor = self.check_line2(board,player,0,1,lastmove)
+            cnt_ver = self.check_line2(board,player,1,0,lastmove)
+            cnt_diag = self.check_line2(board,player,1,1,lastmove)
+            cnt_diagrev = self.check_line2(board,player,1,-1,lastmove)
+            
+            if(cnt_hor>=self.NEED_TO_WIN or cnt_ver>=self.NEED_TO_WIN or cnt_diag>self.NEED_TO_WIN or cnt_diagrev>self.NEED_TO_WIN):
+                return True
+            return False
+            
         all = 0
         for i in range(self.GRID_SIZE):
             for j in range(self.GRID_SIZE):
@@ -44,14 +74,17 @@ class TicTacToeModel:
                     all+=1
         return (all>0)
 
-    def gameover(self,board):
+    def gameover(self,board, lastmove = None):
         flag = 1
         for i in range(self.GRID_SIZE):
             for j in range(self.GRID_SIZE):
                 if(board[i][j]==0):
                     flag = 0
+                    break
+            if(flag == 0):
+                break
         
-        return self.win(board, 1) or self.win(board, -1) or flag
+        return self.win(board, 1, lastmove) or self.win(board, -1, lastmove) or flag
 
     def tryMakingAMove(self,board,next,turn):
         i = next//self.GRID_SIZE

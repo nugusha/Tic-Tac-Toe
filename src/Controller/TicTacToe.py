@@ -33,19 +33,24 @@ class TicTacToe:
         if(player2 is not None):
             player2.x = -1
         
-    def gameover(self, board):
+    def gameover(self, board, lastmove = None):
         self.View.gameover()
-        return self.Model.gameover(board)
+        return self.Model.gameover(board, lastmove)
     
-    def Win(self, board, x):
-        return self.Model.win(board, x)
+    def Win(self, board, x, lastmove = None):
+        return self.Model.win(board, x, lastmove)
 
-    def Status(self, board):
-        if(self.Win(board, 1) > 0):
+    def Status(self, board, lastmove = None, cnt = None):
+        if(self.Win(board, 1, lastmove) > 0):
             return 1
-        if(self.Win(board, -1) > 0):
+        if(self.Win(board, -1, lastmove) > 0):
             return -1
-        if(self.gameover(board) > 0):
+        if(cnt!=None):
+            if(cnt<len(board)**2):
+                return None
+            else:
+                return 0
+        if(self.gameover(board, lastmove) > 0):
             return 0
         return None
 
@@ -88,11 +93,12 @@ class TicTacToe:
         board = self.Model.create_board()
         self.draw_board(board)
 
+        players[0].now = None
+        players[1].now = None
+
         while(self.gameover(board) == False):
             if(self.View.isBackButtonClicked()):
                 return 1000
-            players[0].now = None
-            players[1].now = None
 
             self.draw_turn(players[(turn != 1)])
             start = time.time()
@@ -127,10 +133,10 @@ class TicTacToeStatic:
         return m
     
     @staticmethod
-    def Status(s):
+    def Status(s, lastmove = None, cnt = None):
         if(len(s) != 3):
             TTT = TicTacToe(needToWinGLOBAL, len(s))
-            return TTT.Status(s)
+            return TTT.Status(s,lastmove,cnt)
 
         all = []
         for x in s.tolist():

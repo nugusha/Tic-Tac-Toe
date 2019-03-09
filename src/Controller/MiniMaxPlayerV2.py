@@ -75,7 +75,7 @@ class MiniMaxPlayerV2:
     def make_a_move(self,ss):
         s=np.array(ss.copy())
 
-        if(self.now==None or self.now.cnt == len(self.now.s)**2):
+        if(self.now==None):
             cnt = 0
             length = len(ss)
             for i in range(length):
