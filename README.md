@@ -9,7 +9,7 @@ Tic-Tac-Toe in Python
       * RandomBot() - randomly placing marks
       * MiniMaxPlayerV2() - creates a full game tree and reuses for each move (not in UI)
 
-## How to Play (User Interface):
+## How to Play (Graphical User Interface):
 1. Clone the repository into a suitable folder
 2. Navigate to and run "src/Main.py"
 3. Choose algorithms for both player1 and player2
