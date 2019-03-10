@@ -2,22 +2,14 @@ import sys
 import pygame
 sys.path.append('./Controller')
 sys.path.append('./View')
-from MainController import MainController
-from RandomBot import RandomBot
-from HumanPlayer import HumanPlayer
-from MiniMaxPlayer import MiniMaxPlayer
-from MonteCarloTreeSearchPlayer import MonteCarloTreeSearchPlayer
+from MainController import *
+from GameController import *
 
 if __name__ == '__main__':
 
-    PLAYERS = []
-    PLAYERS.append(HumanPlayer())
-    PLAYERS.append(MonteCarloTreeSearchPlayer())
-    PLAYERS.append(MiniMaxPlayer())
-    PLAYERS.append(RandomBot())
+    GAME = GameController()
 
-
-    MENU = MainController(3, PLAYERS)
+    MENU = MainController()
     RESULT = MENU.run()
     print(RESULT)
 

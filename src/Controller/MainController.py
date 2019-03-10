@@ -3,6 +3,10 @@ import sys
 from copy import deepcopy
 from TicTacToe import TicTacToe
 from MenuView import MenuView
+from RandomBot import RandomBot
+from HumanPlayer import HumanPlayer
+from MiniMaxPlayer import MiniMaxPlayer
+from MonteCarloTreeSearchPlayer import MonteCarloTreeSearchPlayer
 BLUE = (0,0,255)
 BLACK = (0,0,0)
 RED = (255,0,0)
@@ -12,12 +16,18 @@ MENU_COLOR = (234, 255, 34)
 needToWinDict = {3: 3, 10: 5}
 
 class MainController:
-    def __init__(self,GRID_SIZE,players):
-        self.players = players
+    def __init__(self):
         self.View = None
 
     
     def run(self):
+        players = []
+        players.append(HumanPlayer())
+        players.append(MonteCarloTreeSearchPlayer())
+        players.append(MiniMaxPlayer())
+        players.append(RandomBot())
+
+        self.players = players
         while(True):
             self.View = MenuView(3, self.players)
             buttons1,buttons2,PlayButton,GRID3,GRID10 = self.View.draw_Menu(self.players)
