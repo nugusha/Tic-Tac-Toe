@@ -35,10 +35,10 @@ class Button:
     def isClicked(self,event):
         posx = event.pos[0]
         posy = event.pos[1]
-        x,y,w,h = self.x,self.y,self.w,self.h
-        if(x<=posx and posx<=x+w):
-            if(y<=posy and posy<=y+h):
-                print(x,posx,x+w,y,posy,y+h)
+        x,y,wm,hm = self.x,self.y,self.wm,self.hm
+        if(x<=posx and posx<=x+wm):
+            if(y<=posy and posy<=y+hm):
+                print(x,posx,x+wm,y,posy,y+hm)
                 print(x)
                 return 1
         return 0
