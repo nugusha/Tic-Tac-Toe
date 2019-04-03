@@ -2,9 +2,7 @@ import numpy as np
 import random
 import sys
 import time
-sys.path.append('./View')
 from TicTacToeView import TicTacToeView
-sys.path.append('./Model')
 from TicTacToeModel import TicTacToeModel
 from stubView import stubView
 

@@ -1,19 +1,16 @@
 import pygame
 import sys
-from GameView import GameView
-from MainController import MainController
 
 class GameController:
-    def __init__(self):
-        self.View = None
+    def __init__(self, view):
+        self.View = view
         self.run()
 
     
     def run(self):
         
         while(True):
-            View = GameView(100)
-            TicTacToeButton, Connect4Button = View.draw_game()
+            TicTacToeButton, Connect4Button = self.View.draw_game()
 
 
             ChosenGame = None

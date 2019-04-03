@@ -13,7 +13,7 @@ WHITE = (255, 255, 255)
 MENU_COLOR = (234, 255, 34)
 
 class GameView:
-    def __init__(self, GRID_SIZE):
+    def __init__(self, GRID_SIZE = 100):
         pygame.init()
         self.GRIDSIZE = GRID_SIZE
         self.SQUARESIZE = 300//GRID_SIZE

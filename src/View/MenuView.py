@@ -1,9 +1,7 @@
 import pygame
 import sys
-from TicTacToe import TicTacToe
 from Button import Button
 from Button import Text
-sys.path.append('./View')
 
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
@@ -13,7 +11,7 @@ WHITE = (255, 255, 255)
 MENU_COLOR = (234, 255, 34)
 
 class MenuView:
-    def __init__(self, GRID_SIZE, players):
+    def __init__(self, GRID_SIZE = 3, players = None):
         pygame.init()
         self.GRIDSIZE = GRID_SIZE
         self.SQUARESIZE = 300//GRID_SIZE
@@ -24,6 +22,9 @@ class MenuView:
         self.screen = pygame.display.set_mode(self.size)
         global Screen
         Screen = self.screen
+    
+    def init(self, GRID_SIZE, players):
+        self.__init__(GRID_SIZE, players)
 
     
     def draw_Menu(self, players):

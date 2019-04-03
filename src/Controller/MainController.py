@@ -2,7 +2,6 @@ import pygame
 import sys
 from copy import deepcopy
 from TicTacToe import TicTacToe
-from MenuView import MenuView
 from RandomBot import RandomBot
 from HumanPlayer import HumanPlayer
 from MiniMaxPlayer import MiniMaxPlayer
@@ -16,8 +15,8 @@ MENU_COLOR = (234, 255, 34)
 needToWinDict = {3: 3, 10: 5}
 
 class MainController:
-    def __init__(self):
-        self.View = None
+    def __init__(self, view):
+        self.View = view
 
     
     def run(self):
@@ -29,7 +28,7 @@ class MainController:
 
         self.players = players
         while(True):
-            self.View = MenuView(3, self.players)
+            self.View.__init__(3, self.players)
             buttons1,buttons2,PlayButton,GRID3,GRID10 = self.View.draw_Menu(self.players)
             
             flag = 0
