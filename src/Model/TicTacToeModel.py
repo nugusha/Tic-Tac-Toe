@@ -57,7 +57,7 @@ class TicTacToeModel:
             cnt_diag = self.check_line2(board,player,1,1,lastmove)
             cnt_diagrev = self.check_line2(board,player,1,-1,lastmove)
             
-            if(cnt_hor>=self.NEED_TO_WIN or cnt_ver>=self.NEED_TO_WIN or cnt_diag>self.NEED_TO_WIN or cnt_diagrev>self.NEED_TO_WIN):
+            if(cnt_hor>=self.NEED_TO_WIN or cnt_ver>=self.NEED_TO_WIN or cnt_diag>=self.NEED_TO_WIN or cnt_diagrev>=self.NEED_TO_WIN):
                 return True
             return False
             
