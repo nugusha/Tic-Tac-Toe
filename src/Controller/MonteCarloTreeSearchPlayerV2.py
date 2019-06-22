@@ -15,6 +15,9 @@ class Node:
         self.cnt = cnt
 
     def expand(self):
+        if(len(self.c)>0):
+            print("Ae bozebo")
+            return # already expanded
         status = TicTacToeStatic.Status(self.s)
         if(status != None):
             return
@@ -50,17 +53,20 @@ class Node:
         rand_play = RandomBot()
         cur_s = self.s
         turn = self.x
-
-        while(TicTacToeStatic.Status(cur_s)==None):
+        lst = None
+        cnt_now = self.cnt
+        while(TicTacToeStatic.Status(cur_s, lst, cnt_now) is None):
             move = rand_play.make_a_move(cur_s)
             r = move // len(self.s)
             c = move % len(self.s)
+            lst = r,c
+            cnt_now += 1
             new_s = cur_s.copy()
             new_s[r,c]=turn
             cur_s = new_s
             turn*=-1
 
-        e = TicTacToeStatic.Status(cur_s)
+        e = TicTacToeStatic.Status(cur_s, lst, cnt_now)
 
         return e
 
@@ -96,6 +102,8 @@ class Node:
 
     def build_tree(self, n_iter=100):
         for i in range(n_iter):
+            if(i%10==0):
+                print(i, "ra yle ginda")
             n = self.selection()
             n.expand()
             new_n = n.selection()
@@ -117,7 +125,8 @@ class MonteCarloTreeSearchPlayerV2:
         self.x = None
         self.now = None
 
-    def make_a_move(self,s,n_iter=1000):
+    def make_a_move(self,s,n_iter=100):
+        print("Daviwyet =================")
         s = np.array(s)
         length = len(s)
         cnt = 0
@@ -171,34 +180,36 @@ class MonteCarloTreeSearchPlayerV2:
                     #print("!!__!!")
                     break
             
-            if(NEXT!=None):
-                self.now = NEXT
-                print("!!!!!!=========!!!!!!!!!")
-            else:
+            if(NEXT==None):
                 self.now = Node(s,cnt,self.x)
                 flag = 1
-
-            print(self.now.s)
-
-            self.now.s[A][B] = self.x*-1
-
-            print(self.now.s)
-
-            NEXT = None
-            for child in self.now.c:
-                if(np.array_equal(child.s, self.now.s)):
-                    Next = child
-                    #print("!!_=_!!")
-                    break
-
-            if(NEXT!=None):
-                self.now = NEXT
-                print("!!!!!!!!!!!!!!!")
-                ww = input()
             else:
-                self.now = Node(s,cnt,self.x)
+                self.now = NEXT
+                print("!!!!!!=========!!!!!!!!!")
+            
 
+                print(self.now.s)
+                print(a,b,A,B,self.x)
+
+                self.now.s[A][B] = self.x*-1
+
+                print(self.now.s)
+
+                NEXT2 = None
+                for child in self.now.c:
+                    if(np.array_equal(child.s, self.now.s)):
+                        NEXT2 = child
+                        #print("!!_=_!!")
+                        break
+
+                if(NEXT2!=None):
+                    self.now = NEXT2
+                    print("!!!!!!!!!!!!!!!")
+                else:
+                    self.now = Node(s,cnt,self.x)
+        print("bildavs")
         self.now.build_tree(n_iter)
+        print("dabilda")
 
         most = -1
         for child in self.now.c:
