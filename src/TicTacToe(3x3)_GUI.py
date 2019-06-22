@@ -1,5 +1,7 @@
 import sys
 sys.path.append('./Controller')
+sys.path.append('./View')
+sys.path.append('./Model')
 from TicTacToe import TicTacToe
 from RandomBot import RandomBot
 from HumanPlayer import HumanPlayer

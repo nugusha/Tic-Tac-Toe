@@ -1,5 +1,7 @@
 import sys
 sys.path.append('./Controller')
+sys.path.append('./View')
+sys.path.append('./Model')
 from TicTacToe import TicTacToe
 from MiniMaxPlayer import MiniMaxPlayer
 from MiniMaxPlayerV2 import MiniMaxPlayerV2
