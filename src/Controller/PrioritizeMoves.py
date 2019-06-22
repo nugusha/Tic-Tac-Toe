@@ -33,12 +33,12 @@ class PrioritizeMoves:
             new_move = do(5)
             if(new_move != (-1,-1)):
                 break
-            new_move = do(3,1)
-            if(new_move != (-1,-1)):
-                break
-            new_move = do(4)
-            if(new_move != (-1,-1)):
-                break
+            # new_move = do(3,1)
+            # if(new_move != (-1,-1)):
+            #     break
+            # new_move = do(4)
+            # if(new_move != (-1,-1)):
+            #     break
         if(new_move != (-1,-1)):
             return [new_move]
 
@@ -71,23 +71,17 @@ class PrioritizeMoves:
         i = move[0]
         j = move[1]
         TM = self.TModel
-        all = 0
-        if( TM.check_line(board,player,i,j,0,1,howmany)):
-            all += 1
-        elif( TM.check_line(board,player,i,j,1,0,howmany)):
-            all += 1
-        elif( TM.check_line(board,player,i,j,0,-1,howmany)):
-            all += 1
-        elif( TM.check_line(board,player,i,j,-1,0,howmany)):
-            all += 1
-        elif( TM.check_line(board,player,i,j,1,1,howmany)):
-            all += 1
-        elif( TM.check_line(board,player,i,j,1,-1,howmany)):
-            all += 1
-        elif( TM.check_line(board,player,i,j,-1,-1,howmany)):
-            all += 1
-        elif( TM.check_line(board,player,i,j,-1,1,howmany)):
-            all += 1
+
+        hor = TM.check_line2(board,player,0,1,move)
+        ver = TM.check_line2(board,player,1,0,move)
+        diag = TM.check_line2(board,player,1,1,move)
+        diag2 = TM.check_line2(board,player,1,-1,move)
+        
+        all = (hor>=howmany)
+        all += (ver>=howmany)
+        all += (diag>=howmany)
+        all += (diag2>=howmany)
+
         return all
         
     

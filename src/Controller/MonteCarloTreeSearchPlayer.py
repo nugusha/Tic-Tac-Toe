@@ -138,7 +138,7 @@ class MonteCarloTreeSearchPlayer:
         PM_moves = PM.PrioritizeMoves(s,self.x,moves)
 
         if(moves!=PM_moves):
-            #print(moves,PM_moves)
+            print("---  ", PM_moves)
             moves = PM_moves
             #print(PM_moves," <---------------PM_moves")
             if(len(moves)==1):

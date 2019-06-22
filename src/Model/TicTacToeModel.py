@@ -32,22 +32,19 @@ class TicTacToeModel:
 
     def check_line2(self, board, player, ii, jj, lastmove):
         c_i,c_j = lastmove
+        def helpme(sign,i,j,x):
+            while(board[i][j]==player):
+                x +=1
+                i += sign*ii
+                j += sign*jj
+                if(j>=len(board) or i>=len(board) or j<0 or i<0):
+                    break
+            return x
         x = 0
         i,j = c_i,c_j
-        while(board[i][j]==player):
-            x +=1
-            i += ii
-            j += jj
-            if(j>=len(board) or i>=len(board) or j<0 or i<0):
-                break
-            
+        x = helpme(1,i,j,x)    
         i,j = c_i,c_j
-        while(board[i][j]==player):
-            x +=1
-            i -= ii
-            j -= jj
-            if(j>=len(board) or i>=len(board) or j<0 or i<0):
-                break
+        x = helpme(-1,i,j,x)
         return x-(board[c_i][c_j]==player)
 
     def win(self, board, player, lastmove = None):
